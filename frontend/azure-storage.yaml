@@ -1,0 +1,11 @@
+name: azure-resume-storage
+metadata:
+  template: minimal@1.0.0-beta
+infra:
+  provider: bicep
+  path: infra-storage
+services:
+  frontend:
+    project: manual-deploy
+    host: staticwebapp
+    language: js
