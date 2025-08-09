@@ -1,0 +1,8 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "CosmosDBConnection": "AccountEndpoint=https://brandoncosmosdb.documents.azure.com:443/;AccountKey=areUpHBGos7p7UoaFNzjZvTrm5rp1yW4hXs9Vtrxor1VXMQ1kXE0shrkVdEdwwqfEY4SXOtgy7JCACDbbaySYQ==;"
+  }
+}
