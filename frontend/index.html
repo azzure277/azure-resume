@@ -21,6 +21,12 @@
 	<link rel="stylesheet" href="css/layout.css">
    <link rel="stylesheet" href="css/media-queries.css">
    <link rel="stylesheet" href="css/magnific-popup.css">
+   
+   <!-- Font Awesome Icons -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   
+   <!-- Fontello Icons -->
+   <link rel="stylesheet" href="css/fontello/css/fontello.css">
 
    <!-- Script
    ================================================== -->
@@ -55,7 +61,7 @@
          <div class="banner-text">
             <h1 class="responsive-headline">Hi, I'm Brandon - Software Development Engineer</h1>
             
-            <p>and this page has been viewed <span id="counter">Loading...</span> times :) </p> 
+            <p>and this page has been viewed <a id="counter"></a> times :) </p> 
 
             <p>I'm a proud graduate of the Microsoft Software and Systems Academy, with experience building cloud-native applications on Microsoft Azure. I'm passionate about full-stack development, DevOps, and continuous learning.</p>
 
@@ -89,12 +95,10 @@
 
             <h2>ABOUT ME</h2>
 
-            <p> Hi, I'm Brandon, <span>Software Development Engineer</span> who enjoys building cloud-native applications on Microsoft Azure.
+            <p>Hi, I'm Brandon, <span>Software Development Engineer</span> who enjoys building cloud-native applications on Microsoft Azure.
                I'm actively building projects and gaining hands-on experience in cloud development on Microsoft Azure designing, deploying, and managing scalable solutions in Azure including services like Azure App Services, Azure Functions, Azure Kubernetes Service (AKS), and Azure Cosmos DB, DevOps practices, and CI/CD pipelines.</p>
                
-         </br>
-      </br>
-       I built this page to showcase my Azure cloud development skills and modern web technologies.
+            <p>I built this page to showcase my Azure cloud development skills and modern web technologies.</p>
             
 
          </div> <!-- end .main-col -->
@@ -326,13 +330,6 @@
                <a href="https://www.styleshout.com/free-templates/ceevee/"> Template by CeeVee </a>
             </ul>
 
-            <!-- Visitor Counter -->
-            <div class="visitor-counter">
-               <p class="visitor-text">
-                  You are visitor number: <span id="visitor-count" class="count-number">Loading...</span>
-               </p>
-            </div>
-
          </div>
 
          <div id="go-top"><a class="smoothscroll" title="Back to Top" href="#home"><i class="icon-up-open"></i></a></div>
@@ -345,13 +342,107 @@
    ================================================== -->
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
    <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
-   <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.2.1/jquery-migrate.min.js"></script>
 
-   <script src="js/jquery.flexslider.js"></script>
-   <script src="js/waypoints.js"></script>
-   <script src="js/jquery.fittext.js"></script>
-   <script src="js/magnific-popup.js"></script>
-   <script src="js/init.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.2/jquery.flexslider-min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/FitText.js/1.2.0/jquery.fittext.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+   
+   <!-- Local Scripts -->
+   <script>
+   /*-----------------------------------------------------------------------------------
+    * Init JS
+    -----------------------------------------------------------------------------------*/
+   jQuery(document).ready(function($) {
+
+   /*----------------------------------------------------*/
+   /* FitText Settings
+   ------------------------------------------------------ */
+       setTimeout(function() {
+       $('h1.responsive-headline').fitText(1, { minFontSize: '40px', maxFontSize: '90px' });
+     }, 100);
+
+   /*----------------------------------------------------*/
+   /* Smooth Scrolling
+   ------------------------------------------------------ */
+      $('.smoothscroll').on('click',function (e) {
+       e.preventDefault();
+       var target = this.hash,
+       $target = $(target);
+       $('html, body').stop().animate({
+           'scrollTop': $target.offset().top
+       }, 800, 'swing', function () {
+           window.location.hash = target;
+       });
+   });
+
+   /*----------------------------------------------------*/
+   /* Highlight the current section in the navigation bar
+   ------------------------------------------------------*/
+   var sections = $("section");
+   var navigation_links = $("#nav-wrap a");
+
+   sections.waypoint({
+         handler: function(event, direction) {
+       var active_section;
+       active_section = $(this);
+       if (direction === "up") active_section = active_section.prev();
+
+       var active_link = $('#nav-wrap a[href="#' + active_section.attr("id") + '"]');
+            navigation_links.parent().removeClass("current");
+       active_link.parent().addClass("current");
+       },
+       offset: '35%'
+   });
+
+   /*----------------------------------------------------*/
+   /* Make sure that #header-background-image height is equal to the browser height.
+   ------------------------------------------------------ */
+      $('header').css({ 'height': $(window).height() });
+      $(window).on('resize', function() {
+           $('header').css({ 'height': $(window).height() });
+           $('body').css({ 'width': $(window).width() })
+      });
+
+   /*----------------------------------------------------*/
+   /* Fade In/Out Primary Navigation
+   ------------------------------------------------------*/
+      $(window).on('scroll', function() {
+       var h = $('header').height();
+       var y = $(window).scrollTop();
+         var nav = $('#nav-wrap');
+
+      if ( (y > h*.20) && (y < h) && ($(window).outerWidth() > 768 ) ) {
+         nav.fadeOut('fast');
+      }
+         else {
+            if (y < h*.20) {
+               nav.removeClass('opaque').fadeIn('fast');
+            }
+            else {
+               nav.addClass('opaque').fadeIn('fast');
+            }
+         }
+      });
+
+   /*----------------------------------------------------*/
+   /* Modal Popup
+   ------------------------------------------------------*/
+      $('.item-wrap a').magnificPopup({
+         type:'inline',
+         fixedContentPos: false,
+         removalDelay: 200,
+         showCloseBtn: false,
+         mainClass: 'mfp-fade'
+      });
+
+      $(document).on('click', '.popup-modal-dismiss', function (e) {
+       e.preventDefault();
+       $.magnificPopup.close();
+      });
+   });
+   </script>
    
    <!-- Azure Functions Integration -->
    <script src="js/main.js"></script>

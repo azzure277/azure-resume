@@ -38,7 +38,7 @@ header {
    height: 800px;
    min-height: 500px;
    width: 100%;
-   background: #161415 url(../images/overlay-bg.png) no-repeat;
+   background: #161415 url(../../images/overlay-bg.png) no-repeat;
    background-size: cover !important;
    -webkit-background-size: cover !important;
    text-align: center;
@@ -207,6 +207,11 @@ ul#nav li.current a { color: #F06000; }
    overflow: hidden;
 }
 
+#about .three.columns {
+   text-align: center;
+   padding: 20px 0;
+}
+
 #about a, #about a:visited  { color: #fff; }
 #about a:hover, #about a:focus { color: #11ABB0; }
 
@@ -219,11 +224,30 @@ ul#nav li.current a { color: #F06000; }
    line-height: 30px;
    color: #7A7A7A;
 }
+#about p span {
+   color: #7A7A7A;
+   font-weight: normal;
+}
 #about .profile-pic {
    position: relative;
    width: 120px;
    height: 120px;
    border-radius: 100%;
+   border: 3px solid #ffffff;
+   box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+   display: block;
+   object-fit: cover;
+   margin: 0 auto;
+   background-color: #444; /* Fallback background */
+}
+
+/* Ensure the image loads properly */
+#about .profile-pic:not([src]),
+#about .profile-pic[src=""],
+#about .profile-pic[src*="placeholder"] {
+   background-color: #666;
+   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><rect width="120" height="120" fill="%23666"/><text x="50%" y="50%" text-anchor="middle" dy=".35em" fill="%23fff" font-family="Arial, sans-serif" font-size="14">No Image</text></svg>');
+   background-size: cover;
 }
 #about .contact-details { width: 41.66667%; }
 #about .download {
@@ -286,8 +310,10 @@ ul#nav li.current a { color: #F06000; }
    margin-top: 9px;
 }
 #resume .info span {
-   margin-right: 5px;
-   margin-left: 5px;
+   margin-right: 8px;
+   margin-left: 8px;
+   color: #A8A8A8;
+   font-weight: bold;
 }
 #resume .date {
    font: 15px/24px 'opensans-regular', sans-serif;
@@ -296,6 +322,14 @@ ul#nav li.current a { color: #F06000; }
 
 /* Skills
 ----------------------------------------------- */
+#resume .row.skills {
+   background: #fff;
+   padding: 48px 0;
+   margin: 48px auto 0 auto;
+   max-width: 1020px;
+   width: 96%;
+}
+
 .bars {
 	width: 95%;
 	float: left;
@@ -337,13 +371,16 @@ ul#nav li.current a { color: #F06000; }
 
 .skills-list {
    list-style: none;
-   margin: 24px 0;
+   margin: 24px auto;
+   max-width: 800px;
+   text-align: left;
 }
 .skills-list li {
    margin-bottom: 6px;
-   background: #ccc;
+   background: #fff;
    padding: 9px 20px;
    border-radius: 3px;
+   text-align: center;
 }
 .skills-list li strong {
    font: 16px/30px 'opensans-bold', sans-serif;

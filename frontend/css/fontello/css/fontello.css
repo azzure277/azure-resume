@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: 'fontello';
+  src: url('../../../css/fontello/font/fontello.eot?27469523');
+  src: url('../../../css/fontello/font/fontello.eot?27469523#iefix') format('embedded-opentype'),
+       url('../../../css/fontello/font/fontello.woff?27469523') format('woff'),
+       url('../../../css/fontello/font/fontello.ttf?27469523') format('truetype'),
+       url('../../../css/fontello/font/fontello.svg?27469523#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Chrome hack: SVG is rendered more smooth in Webkit browsers than fonts. */
+/* Note: Keep this block for better icon quality in webkit browsers. */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'fontello';
+    src: url('../../../css/fontello/font/fontello.svg?27469523#fontello') format('svg');
+  }
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: never;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1em;
+  margin-left: .2em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fallback to Font Awesome for missing Fontello icons */
+.icon-down-circle:before { 
+  font-family: "FontAwesome" !important;
+  content: "\f0ab" !important; 
+}
+
+.icon-up-open:before { 
+  font-family: "FontAwesome" !important;
+  content: "\f077" !important; 
+}

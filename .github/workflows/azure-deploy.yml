@@ -1,0 +1,152 @@
+name: Azure Resume CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './backend'
+  NODE_VERSION: '20.x'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v4
+
+    - name: Setup Node ${{ env.NODE_VERSION }} Environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: ./backend/package-lock.json
+
+    - name: 'Install backend dependencies'
+      shell: bash
+      run: |
+        cd backend
+        npm install
+
+    - name: 'Validate frontend'
+      shell: bash
+      run: |
+        # Check if HTML, CSS, and JS files exist and are valid
+        if [ ! -f "frontend/index.html" ]; then
+          echo "Error: index.html not found in frontend directory"
+          exit 1
+        fi
+        
+        if [ ! -f "frontend/style.css" ]; then
+          echo "Error: style.css not found in frontend directory"
+          exit 1
+        fi
+        
+        if [ ! -f "frontend/script.js" ]; then
+          echo "Error: script.js not found in frontend directory"
+          exit 1
+        fi
+        
+        echo "Frontend files validated successfully"
+
+  deploy-infrastructure:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: production
+    steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v4
+
+    - name: 'Login to Azure'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: 'Deploy Infrastructure'
+      uses: azure/arm-deploy@v1
+      id: deploy-infrastructure
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        resourceGroupName: ${{ secrets.AZURE_RESOURCE_GROUP }}
+        template: ./infra/main.bicep
+        parameters: 'environmentName=prod location=${{ secrets.AZURE_LOCATION }}'
+
+    - name: 'Output Infrastructure Details'
+      run: |
+        echo "Static Web App Name: ${{ steps.deploy-infrastructure.outputs.STATIC_WEB_APP_NAME }}"
+        echo "Function App Name: ${{ steps.deploy-infrastructure.outputs.FUNCTION_APP_NAME }}"
+
+  deploy-backend:
+    needs: [build-and-test, deploy-infrastructure]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: production
+    steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v4
+
+    - name: Setup Node ${{ env.NODE_VERSION }} Environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: ./backend/package-lock.json
+
+    - name: 'Install backend dependencies'
+      shell: bash
+      run: |
+        cd backend
+        npm install --production
+
+    - name: 'Login to Azure'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: 'Deploy Azure Functions'
+      uses: Azure/functions-action@v1
+      with:
+        app-name: ${{ secrets.AZURE_FUNCTION_APP_NAME }}
+        package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+        scm-do-build-during-deployment: true
+        enable-oryx-build: true
+
+  deploy-frontend:
+    needs: [build-and-test, deploy-infrastructure]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: production
+    steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v4
+
+    - name: 'Update API URLs in frontend'
+      run: |
+        # Replace placeholder API URLs with actual Function App URL
+        sed -i 's|/api/|https://${{ secrets.AZURE_FUNCTION_APP_NAME }}.azurewebsites.net/api/|g' frontend/script.js
+
+    - name: 'Deploy to Azure Static Web Apps'
+      uses: Azure/static-web-apps-deploy@v1
+      with:
+        azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        action: "upload"
+        app_location: "/frontend"
+        api_location: ""
+        output_location: ""
+
+  notify-deployment:
+    needs: [deploy-backend, deploy-frontend]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+    - name: 'Deployment Success Notification'
+      run: |
+        echo "🎉 Azure Resume deployment completed successfully!"
+        echo "✅ Frontend deployed to Azure Static Web Apps"
+        echo "✅ Backend deployed to Azure Functions"
+        echo "✅ Infrastructure provisioned with Bicep"

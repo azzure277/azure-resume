@@ -1,0 +1,28 @@
+{
+  "name": "azure-resume-backend",
+  "version": "1.0.0",
+  "description": "Azure Functions backend for Azure Resume project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "func start",
+    "build": "echo \"No build step required\"",
+    "deploy": "func azure functionapp publish your-function-app-name"
+  },
+  "dependencies": {
+    "@azure/cosmos": "^4.0.0",
+    "@azure/functions": "^4.0.0"
+  },
+  "devDependencies": {
+    "azure-functions-core-tools": "^4.0.5455"
+  },
+  "keywords": [
+    "azure",
+    "functions",
+    "serverless",
+    "resume",
+    "portfolio"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

@@ -19,7 +19,6 @@
 /* a. Webfonts and Icon fonts
 /* ------------------------------------------------------------------ */
 
-@import url("css/font-awesome/css/font-awesome.min.css");
 @import url("https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700");
 
 /* ------------------------------------------------------------------ */
@@ -323,3 +322,59 @@ input::-moz-focus-inner {
 .remove-bottom { margin-bottom: 0 !important; }
 .half-bottom { margin-bottom: 12px !important; }
 .add-bottom { margin-bottom: 24px !important; }
+
+/* ------------------------------------------------------------------ */
+/* j. Grid System
+/* ------------------------------------------------------------------ */
+
+.row {
+   width: 96%;
+   max-width: 1020px;
+   margin: 0 auto;
+}
+
+.ie .row { width: 1000px ; }
+
+.narrow .row { max-width: 980px; }
+
+.row .row { width: auto; max-width: none; margin: 0 -20px; }
+
+/* Clearfix */
+.row:before,
+.row:after {
+    content: " ";
+    display: table;
+}
+.row:after {
+    clear: both;
+}
+
+.column, .columns {
+   position: relative;
+   padding: 0 20px;
+   min-height: 1px;
+   float: left;
+}
+.column.centered, .columns.centered  {
+   float: none;
+   margin: 0 auto;
+}
+
+/* Row Collapsed */
+.row.collapsed > .column,
+.row.collapsed > .columns,
+.column.collapsed, .columns.collapsed  { padding: 0; }
+
+/* Grid widths */
+.row .one         { width: 8.33333%; }
+.row .two         { width: 16.66667%; }
+.row .three       { width: 25%; }
+.row .four        { width: 33.33333%; }
+.row .five        { width: 41.66667%; }
+.row .six         { width: 50%; }
+.row .seven       { width: 58.33333%; }
+.row .eight       { width: 66.66667%; }
+.row .nine        { width: 75%; }
+.row .ten         { width: 83.33333%; }
+.row .eleven      { width: 91.66667%; }
+.row .twelve      { width: 100%; }
