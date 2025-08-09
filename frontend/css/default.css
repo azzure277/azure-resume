@@ -1,43 +1,325 @@
-/* Default styles for Azure Resume */
+/*
+=====================================================================
+*   Ceevee v1.0 Default/Base Stylesheet
+*   Professional Resume Template - Azure Resume Edition
+=====================================================================
+
+   TOC:
+   a. Webfonts and Icon fonts
+   b. Reset 
+   c. Default Styles
+   d. Basic Forms
+   e. Buttons
+   f. Tabs
+   g. Toggles
+
+===================================================================== */
+
+/* ------------------------------------------------------------------ */
+/* a. Webfonts and Icon fonts
+/* ------------------------------------------------------------------ */
+
+@import url("css/font-awesome/css/font-awesome.min.css");
+@import url("https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700");
+
+/* ------------------------------------------------------------------ */
+/* b. Reset
+/* ------------------------------------------------------------------ */
+
 * {
-    box-sizing: border-box;
+   margin: 0;
+   padding: 0;
 }
 
+/* Box Model Hack */
+*,
+*:before,
+*:after {
+   -moz-box-sizing: border-box; /* Firefox */
+   -webkit-box-sizing: border-box; /* Safari */
+   box-sizing: border-box; /* IE */
+}
+
+/* ------------------------------------------------------------------ */
+/* c. Default and Basic Styles
+/* ------------------------------------------------------------------ */
+
 html {
-    scroll-behavior: smooth;
+   font-size: 62.5%;
+   -webkit-font-smoothing: antialiased;
 }
 
 body {
-    background: #f8f9fa;
+   background: #0f0f0f;
+   font-family: 'Libre Baskerville', serif;
+   font-weight: normal;
+   font-size: 15px;
+   line-height: 30px;
+   color: #838C95;
+
+   -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
+   -webkit-text-size-adjust: 100%;
 }
 
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
+/* ------------------------------------------------------------------ */
+/* d. Typography styles
+/* ------------------------------------------------------------------ */
+
+h1, h2, h3, h4, h5, h6 {
+   color: #313131;
+   font-family: 'Libre Baskerville', serif;
+   font-weight: normal;
+}
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight: inherit; }
+h1 { font-size: 38px; line-height: 42px; margin-bottom: 12px; letter-spacing: -1px; }
+h2 { font-size: 28px; line-height: 36px; margin-bottom: 6px; }
+h3 { font-size: 22px; line-height: 30px; margin-bottom: 12px; }
+h4 { font-size: 20px; line-height: 30px; margin-bottom: 6px; }
+h5 { font-size: 18px; line-height: 30px; }
+h6 { font-size: 14px; line-height: 30px; }
+
+.subheader { color: #6f6f6f; }
+
+p { margin: 0 0 30px 0; }
+p img { margin: 0; }
+p.lead { 
+   font: 19px/36px 'Libre Baskerville', serif; 
+   margin-bottom: 18px;
 }
 
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 1rem 0;
+/* for 'em' and 'strong' tags, font-size and line-height should be same with 
+the body tag due to rendering problems in some browsers */
+em { font: 15px/30px 'Libre Baskerville', serif; font-style: italic; }
+strong, b { font: 15px/30px 'Libre Baskerville', serif; font-weight: bold; }
+small { font-size: 11px; line-height: inherit; }
+
+/*	Blockquotes  */
+blockquote {
+   margin: 30px 0px;
+   padding-left: 40px;
+   position: relative;
+}
+blockquote:before {
+   content: "\201C";
+   opacity: 0.45;
+   font-size: 80px;
+   line-height: 0px;
+   margin: 0;
+   font-family: arial, sans-serif;
+
+   position: absolute;
+   top: 30px;
+   left: 0;
+}
+blockquote p {
+   font-family: 'Libre Baskerville', serif;
+   padding: 0;
+   font-size: 18px;
+   line-height: 36px;
+}
+blockquote cite {
+   display: block;
+   font-size: 12px;
+   font-style: normal;
+   line-height: 18px;
+}
+blockquote cite:before { content: "\2014 \0020"; }
+blockquote cite a,
+blockquote cite a:visited { color: #8B9798; border: none }
+
+abbr {
+   font-family: 'Libre Baskerville', serif;
+   font-variant: small-caps;
+   text-transform: lowercase;
+   letter-spacing: .5px;
+   color: gray;
+}
+abbr:hover { color: #48525c; }
+
+/* ------------------------------------------------------------------ */
+/* e. Links
+/* ------------------------------------------------------------------ */
+
+a, a:visited {
+   text-decoration: none;
+   outline: 0;
+   color: #11ABB0;
+
+   -webkit-transition: color .3s ease-in-out;
+   -moz-transition: color .3s ease-in-out;
+   -o-transition: color .3s ease-in-out;
+   transition: color .3s ease-in-out;
+}
+a:hover, a:focus { color: #313131; }
+p a, p a:visited { line-height: inherit; }
+
+/* ------------------------------------------------------------------ */
+/* f. List styles
+/* ------------------------------------------------------------------ */
+
+ul, ol { margin-bottom: 24px; margin-top: 12px; }
+ul { list-style: none outside; }
+ol { list-style: decimal; }
+ol, ul.square, ul.circle, ul.disc { margin-left: 30px; }
+ul.square { list-style: square outside; }
+ul.circle { list-style: circle outside; }
+ul.disc { list-style: disc outside; }
+ul ul, ul ol,
+ol ol, ol ul { margin: 6px 0 6px 30px; }
+ul ul li, ul ol li,
+ol ol li, ol ul li { margin-bottom: 6px; }
+li { line-height: 18px; margin-bottom: 12px; }
+ul.large li { line-height: 21px; }
+li p { line-height: 21px; }
+
+/* ------------------------------------------------------------------ */
+/* g. Forms
+/* ------------------------------------------------------------------ */
+
+form { margin-bottom: 24px; }
+fieldset { margin-bottom: 24px; }
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea,
+select {
+   display: block;
+   padding: 18px 15px;
+   margin: 0 0 24px 0;
+   border: 0;
+   outline: none;
+   vertical-align: middle;
+   min-width: 225px;
+   max-width: 100%;
+   font-size: 15px;
+   line-height: 24px;
+   color: #647373;
+   background: #D3D9D9;
+
 }
 
-.twelve {
-    width: 100%;
+/* select { padding: 0;
+   width: 220px;
+   } */
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+   color: #B3B7BC;
+	background-color: #3d4145;
 }
 
-.nine {
-    width: 75%;
+textarea {
+   min-height: 220px;
+	resize: none;
 }
 
-.three {
-    width: 25%;
+label,
+legend {
+   font: 16px/24px 'Libre Baskerville', serif;
+	margin: 12px 0;
+   color: #3d4145;
+	display: block;
+}
+label span,
+legend span {
+	color: #8B9798;
+	font: 14px/24px 'Libre Baskerville', serif;
 }
 
-@media (max-width: 768px) {
-    .nine, .three {
-        width: 100%;
-    }
+input[type="checkbox"],
+input[type="radio"] {
+    font-size: 15px;
+    color: #737373;
 }
+
+input[type="checkbox"] { display: inline; }
+
+/* ------------------------------------------------------------------ */
+/* h. Buttons
+/* ------------------------------------------------------------------ */
+
+.button,
+.button:visited,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+   font: 16px/30px 'Libre Baskerville', serif;
+   background: #11ABB0;
+   display: inline-block;
+   text-decoration: none;
+   letter-spacing: 0;
+   color: #fff;
+   padding: 12px 20px;
+   margin-bottom: 18px;
+   border: none;
+   cursor: pointer;
+   height: auto;
+
+   -webkit-transition: all .2s ease-in-out;
+   -moz-transition: all .2s ease-in-out;
+   -o-transition: all .2s ease-in-out;
+   -ms-transition: all .2s ease-in-out;
+   transition: all .2s ease-in-out;
+
+   -webkit-border-radius: 3px;
+   -moz-border-radius: 3px;
+   border-radius: 3px;
+}
+
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover {
+   background: #3d4145;
+   color: #fff;
+}
+
+.button:active,
+button:active,
+input[type="submit"]:active,
+input[type="reset"]:active,
+input[type="button"]:active {
+   background: #3d4145;
+   color: #fff;
+}
+
+.button.full-width,
+button.full-width,
+input[type="submit"].full-width,
+input[type="reset"].full-width,
+input[type="button"].full-width {
+	width: 100%;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	text-align: center;
+}
+
+/* Fix for odd Mozilla border & padding issues */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* i. Misc styles
+/* ------------------------------------------------------------------ */
+
+.pull-right { float: right; }
+.pull-left { float: left; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+.text-justify { text-align: justify; }
+.hide { display: none; }
+.antialiased { -webkit-font-smoothing: antialiased; }
+.overflow-hidden { overflow: hidden; }
+
+.remove-bottom { margin-bottom: 0 !important; }
+.half-bottom { margin-bottom: 12px !important; }
+.add-bottom { margin-bottom: 24px !important; }

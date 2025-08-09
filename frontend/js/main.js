@@ -17,12 +17,22 @@
     
     // Function to update the visitor counter
     function updateVisitorCounter() {
-        const visitorElement = document.getElementById('visitor-count');
-        if (visitorElement) {
-            visitorElement.textContent = count;
-            console.log('Updated visitor counter to:', count);
+        // Update both counter elements
+        const mainCounter = document.getElementById('counter');
+        const footerCounter = document.getElementById('visitor-count');
+        
+        if (mainCounter) {
+            mainCounter.textContent = count;
+            console.log('Updated main counter to:', count);
         } else {
-            console.log('Visitor counter element not found');
+            console.log('Main counter element not found');
+        }
+        
+        if (footerCounter) {
+            footerCounter.textContent = count;
+            console.log('Updated footer counter to:', count);
+        } else {
+            console.log('Footer counter element not found');
         }
     }
     
