@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Counter - Azure Resume</title>
+</head>
+<body>
+    <h1>Test Page - Counter Check</h1>
+    <p>Visitor count: <span id="visitor-count">Loading...</span></p>
+    
+    <script>
+        // Simple visitor counter test
+        console.log('Script loading...');
+        
+        let count = localStorage.getItem('azureResumeVisitorCount');
+        if (!count) {
+            count = 1247; // Test number
+        } else {
+            count = parseInt(count) + 1;
+        }
+        localStorage.setItem('azureResumeVisitorCount', count);
+        
+        document.getElementById('visitor-count').textContent = count;
+        console.log('Counter updated to:', count);
+    </script>
+</body>
+</html>
