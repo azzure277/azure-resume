@@ -25,7 +25,7 @@ jobs:
           azure_static_web_apps_api_token: 40b63872ac4c21ff92c35701441e1e56ec89455bf347e7070b96bfe2bf4232c101-c36f428a-1303-434d-bc04-a1be60d9ada801017000e02f3710
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "frontend"
+          app_location: "/"
           api_location: ""
           output_location: ""
 
