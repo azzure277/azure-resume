@@ -1,0 +1,43 @@
+/* Default styles for Azure Resume */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f8f9fa;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+}
+
+.twelve {
+    width: 100%;
+}
+
+.nine {
+    width: 75%;
+}
+
+.three {
+    width: 25%;
+}
+
+@media (max-width: 768px) {
+    .nine, .three {
+        width: 100%;
+    }
+}
