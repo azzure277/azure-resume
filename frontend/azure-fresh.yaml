@@ -1,0 +1,8 @@
+name: brandon-fresh-resume
+infra:
+  provider: bicep
+services:
+  fresh-resume-frontend:
+    project: ./
+    host: staticwebapp
+    language: js
