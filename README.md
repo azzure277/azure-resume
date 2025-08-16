@@ -17,7 +17,7 @@ My personal resume website built with modern web technologies and deployed on Mi
 ---
 
 ## Live link
-- **Resume Website:** [https://calm-wave-04f871d10.2.azurestaticapps.net](https://calm-wave-04f871d10.2.azurestaticapps.net)
+- **Resume Website:** https://lemon-forest-01385ae10.1.azurestaticapps.net/
 - 
 
 ---
